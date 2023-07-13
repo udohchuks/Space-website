@@ -268,8 +268,8 @@ select {
     align-items: center;    
     padding: 0 2em;
     border-radius: 50%;
-    width: max(15rem, 15vw);
-    height: max(15rem, 15vw);
+    width: max(15rem, 10vw);
+    height: max(15rem, 10vw);
     /* aspect-ratio: 1; */
     text-decoration: none;
 }
