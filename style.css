@@ -9,10 +9,10 @@
     --clr-white: 0 0% 100%;
     
     /* font-sizes */
-    --fs-900: clamp(5rem, 20vw + 1rem, 9.375rem);
+    --fs-900: clamp(5rem, 20vw + 1rem, 7rem);
     --fs-800: 3.5rem;
     --fs-700: 1.5rem;
-    --fs-600: 1rem;
+    --fs-600: .9rem;
     --fs-500: 1.75rem;
     --fs-400: 0.9375rem;
     --fs-300: 1rem;
@@ -22,18 +22,21 @@
     --ff-serif: "Bellefair", serif;
     --ff-sans-cond: "Barlow Condensed", sans-serif;
     --ff-sans-normal: "Barlow", sans-serif;
+    --sm: 35em;
+    --mm: 45em;
+    --lg: 55em;
 }
 
-@media (min-width: 48em) {
+@media (min-width: 35em) {
     :root {
         --fs-800: 5rem;
         --fs-700: 2.5rem;
-        --fs-600: 1.5rem;
+        --fs-600: 1.1rem;
         --fs-400: 1rem;
     }
 }
 
-@media (min-width: 60em) {
+@media (min-width: em) {
     :root {
         /* font-sizes */
         --fs-800: 6.25rem;
@@ -92,11 +95,12 @@ body {
     margin: 0;
     display: grid;
     grid-template-rows: min-content 1fr;
+    overflow-x: hidden;
 }
 
 /* make images easier to work with */
 img,
-picutre {
+picture {
     max-width: 100%;
     display: block;
 }
@@ -153,7 +157,7 @@ select {
     place-items: center;
     padding: 1em;
     text-align: center;
-    gap: 0;
+    gap: 1em;
 }
 .grid-container > * {
     max-width: 40ch;
@@ -286,32 +290,32 @@ select {
     transition: opacity 500ms linear, transform 750ms ease-in-out;
 }
  
+
 .large-button:hover::after,
 .large-button:focus::after {
     opacity: 1;
     transform: scale(1.5);
 }
 
+.logo {
+    margin: 1.5em clamp(1.5em, 5vw, 3.5em);
+}
+.primary-header {
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.mobile-nav-toggle {
+    display: none;
+}
 .primary-navigation {
+    --gap: clamp(1.5em, 6vw, 3.5em);
     --underline-gap: 2rem;
     list-style: none;
     padding: 0;
     margin: 0;
     background: hsl( var(--clr-white) / 0.3);
     backdrop-filter: blur(1.5rem);
-}
-@media (max-width: 35rem) {
-    .primary-navigation {
-        --underline-gap: 0.5rem;
-        flex-direction: column;
-        z-index: 1000;
-        position: fixed;
-        inset: 0 0 0 30%;
-        padding: min(20rem, 15vh) 2rem;
-    }
-    .primary-navigation.underline-indicators > *.active {
-        border: 0;
-    }
 }
 .primary-navigation a {
     text-decoration: none;
@@ -321,7 +325,59 @@ select {
     font-weight: 700;
     margin-right: .5em;
 }
-
+@media (max-width: 35rem) {
+    .primary-navigation {
+        --underline-gap: 0.5rem;
+        flex-direction: column;
+        z-index: 1000;
+        position: fixed;
+        inset: 0 0 0 30%;
+        padding: min(20rem, 15vh) 2rem;
+        transition: transform 0.7s ease-out;
+        transform: translateX(100%);
+    }
+    .primary-navigation[data-visible="true"] {
+        transform: translateX(0);
+    }
+    .mobile-nav-toggle[aria-expanded="true"] {
+        background-image: url(assets/shared/icon-close.svg);
+    }
+    .mobile-nav-toggle {
+        display: block;
+        position: absolute;
+        top: 2em;
+        right: 1em;
+        z-index: 2000;
+        background: transparent;
+        border: 0;
+        background-image: url(assets/shared/icon-hamburger.svg);
+        background-repeat: no-repeat;
+        width: 1.5rem;
+        aspect-ratio: 1;
+        cursor: pointer;
+    }
+    .mobile-nav-toggle:focus {
+        transform: scale(1.1);
+    }
+    .primary-navigation.underline-indicators > *.active {
+        border: 0;
+    }
+}
+@media (min-width: 35em) {
+    .primary-navigation {
+        padding-inline: clamp(1.5em, 10vw, 6em)
+    }
+}
+@media (min-width: 35em) and (max-width: 60em) {
+    .primary-navigation a > span {
+        display: none;
+    }
+}
+@media (min-width: 60em) {
+    .primary-header {
+        margin-block: 2em;
+    }
+}
 .underline-indicators > * {
     cursor: pointer;
     padding: var(--underline-gap, 1rem) 0;
@@ -369,12 +425,14 @@ select {
 body {
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
 }
 .home {
     background-image: url(assets/home/background-home-mobile.jpg);
 }
 @media (min-width: 48rem) {
     .home {
+        background-position: bottom center;
         background-image: url(assets/home/background-home-tablet.jpg);
     }
 }
