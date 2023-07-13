@@ -261,18 +261,18 @@ select {
     align-items: center;
     padding: 0 2em;
     border-radius: 50%;
-    width: 15rem;
-    height: 15rem;
+    width: 10rem;
+    height: 10rem;
     /* aspect-ratio: 1; */
     text-decoration: none;
 }
-/* @media (min-width: 45rem)
+@media (min-width: 45rem)
 {
     .large-button {
         width: 15rem;
         height: 15rem;
     } 
-} */
+}
 .large-button::after {
     content: '';
     position: absolute;
